@@ -1,0 +1,161 @@
+/* 全体のスタイル */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f7fafc;
+}
+
+/* カードスタイル */
+.card {
+    width: 100%;
+    max-width: 400px;
+    padding: 1.5rem;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.card-header h2 {
+    font-size: 1.75rem;
+    font-weight: bold;
+}
+
+.card-header p {
+    color: #6b7280;
+}
+
+/* フォームフィールドのスタイル */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+label {
+    display: block;
+    font-size: 0.875rem;
+    color: #4b5563;
+    margin-bottom: 0.5rem;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #374151;
+    background-color: #f9fafb;
+    transition: border-color 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+    outline: none;
+    border-color: #4b79a1;
+}
+
+/* フォームフィールド間の間隔 */
+.space-y-4 > *:not(:last-child) {
+    margin-bottom: 1rem; /* 各フィールド間の間隔を追加 */
+}
+
+/* パスワード表示アイコン */
+.relative {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #9ca3af;
+}
+
+.password-toggle:hover {
+    color: #4b79a1;
+}
+
+.password-toggle i {
+    width: 20px;
+    height: 20px;
+}
+
+/* ログインボタン */
+.button {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #000;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 1.5rem; /* ボタン上に余白を追加 */
+}
+
+.button:hover {
+    background-color: #333;
+}
+
+/* パスワードを忘れましたか */
+.text-center {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+}
+
+.text-center a {
+    color: #4b79a1;
+    text-decoration: none;
+}
+
+.text-center a:hover {
+    text-decoration: underline;
+}
+
+/* バリデーションメッセージのスタイル */
+.flash-messages {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+.flash-message {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.flash-message.error {
+    background-color: #e74c3c;
+}
+
+.flash-message.success {
+    background-color: #2ecc71;
+}

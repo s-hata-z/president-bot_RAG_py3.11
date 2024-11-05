@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3Dモデル表示とアニメーション</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;  /* スクロールを無効にする */
+        }
+        canvas {
+            display: block;  /* Canvasをフルスクリーンに表示 */
+        }
+    </style>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.167.0/build/three.module.js",
+                "FBXLoader": "https://cdn.jsdelivr.net/npm/three@0.167.0/examples/jsm/loaders/FBXLoader.js"
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { FBXLoader } from 'FBXLoader';
+
+        // シーン、カメラ、レンダラーの初期化
+        const scene = new THREE.Scene();
+        const back_loader = new THREE.TextureLoader();
+        const backgroundTexture = back_loader.load('/static/models/ttc-back.jpg');
+        scene.background = backgroundTexture;
+
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 10);
+        camera.position.set(0, 1, 1);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // 環境光を追加
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);  // 環境光
+        scene.add(ambientLight);
+
+        // 方向光を追加
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);  // 方向光
+        directionalLight.position.set(1, 1, 5).normalize();
+        scene.add(directionalLight);
+
+        // FBXファイルの読み込み
+        const loader = new FBXLoader();
+        loader.load('/static/models/fbx/thinking_president.fbx', function (object) {
+            object.traverse(function (child) {
+                if (child.isMesh) {
+                    // マテリアルが設定されていない場合、デフォルトの白いマテリアルを適用
+                    if (!child.material) {
+                        child.material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+                    }
+                }
+            });
+
+            // モデルのスケールを調整
+            object.scale.set(0.01, 0.01, 0.01);  // モデルを縮小
+            scene.add(object);
+
+            // アニメーションがある場合の処理
+            const mixer = new THREE.AnimationMixer(object);
+            if (object.animations && object.animations.length > 0) {
+                const action = mixer.clipAction(object.animations[0]);
+                action.play();
+            }
+
+            // クロックとレンダリング
+            const clock = new THREE.Clock();
+            function animate() {
+                requestAnimationFrame(animate);
+
+                const delta = clock.getDelta();
+                if (mixer) mixer.update(delta);
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+        }, undefined, function (error) {
+            console.error('FBXの読み込みに失敗しました:', error);
+        });
+
+        // ウィンドウサイズ変更時の処理
+        window.addEventListener('resize', () => {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+    </script>
+</body>
+</html>
