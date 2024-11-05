@@ -23,7 +23,9 @@ AWS Certificate Managerでドメインを取得し、ALBにアタッチする形
 - アプリケーションおよびOSイメージ：Ubuntu
 - インスタンスタイプ：t2.small
 - セキュリティグループ：Azure側（OpenAIのエンドポイント）、VSCode側（Flask）と通信可能にしておく
-- キーペア：新規作成して下さい
+- キーペア：新規作成して下さい。ここで生成されたkeyファイルは開発用PCの".sshフォルダ"に格納し、VSCodeのリモート開発機能等を使って当リポジトリを導入してください。
+
+※ElasticIPの割り当て、ドメイン発行、WAFの適応はここでは紹介しないが行っておくこと。
 
 ### 2. ローカル環境構築（初回のみ）
 初回で必須の対応となります。<br>
@@ -130,7 +132,10 @@ bot側UIのアイコン画像、3Dモデル背景画像の設定を行います�
 ```
 export AZURE_OPENAI_API_KEY="..."
 export AZURE_OPENAI_ENDPOINT="..."
-export FILE_PATH="/home/ubuntu/presidentblog-bot_UI"
+export LLM_MODELS="..."
+export LLM_MODELS_TURBO="..."
+export EM_MODELS="..."
+export FILE_PATH="/home/ubuntu/presidentblog-bot_RAG"
 ```
 
 ### 6.アプリの起動（毎回行うこと）
@@ -141,3 +146,7 @@ source venv/bin/activate
 cd presidentblog-bot_UI
 python main.py
 ```
+
+## オプション
+### 1. ログイン画面の有無
+main.pyにて、"ログイン画面を使いたい場合" の内容をアンコメントし、"ログイン画面を使わない場合" の内容をコメントアウトすると使えるようになります。
