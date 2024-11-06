@@ -69,7 +69,7 @@ AWS Certificate Managerでドメインを取得し、ALBにアタッチする形
 
 5. git clone
     ```
-    git clone https://github.com/s-hata-z/presidentblog-bot_RAG.git
+    git clone https://github.com/SakutoHata/president-bot_RAG.git
     ```
 
 6. 仮想環境の構築
