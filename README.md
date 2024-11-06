@@ -69,7 +69,7 @@ AWS Certificate Managerでドメインを取得し、ALBにアタッチする形
 
 5. git clone
     ```
-    git clone https://github.com/s-hata-z/presidentblog-bot_UI.git
+    git clone https://github.com/s-hata-z/presidentblog-bot_RAG.git
     ```
 
 6. 仮想環境の構築
@@ -143,7 +143,7 @@ GitのソースをEC2に配置後、以下を実行して下さい。
 ```
 cd ../
 source venv/bin/activate
-cd presidentblog-bot_UI
+cd presidentblog-bot_RAG
 python main.py
 ```
 
