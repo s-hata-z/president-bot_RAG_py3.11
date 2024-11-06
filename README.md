@@ -19,6 +19,9 @@
 AWS Certificate Managerでドメインを取得し、ALBにアタッチする形でレコードを作成することで、WAFを通じてアクセス可能なデバイス側のIPアドレスを制限しました。
 
 ## セットアップ
+「*(初回のみ)*」と付くものは、初回で必須の対応となります。<br>
+初回以降は、「[3.環境変数](#3-環境変数毎回行うこと)」、「[7.アプリの起動](#7アプリの起動毎回行うこと)」の順で実行して下さい。
+
 ### 1. EC2の設定（初回のみ）
 - アプリケーションおよびOSイメージ：*Ubuntu*
 - インスタンスタイプ：*t2.small*
@@ -28,9 +31,6 @@ AWS Certificate Managerでドメインを取得し、ALBにアタッチする形
 ※ElasticIPの割り当て、ドメイン発行、WAFの適応はここでは紹介しないが行っておくこと。
 
 ### 2. VSCode環境構築（初回のみ）
-初回で必須の対応となります。<br>
-初回以降は、「[5.環境変数](#5-環境変数毎回行うこと)」→ 「[6.アプリの起動](#6アプリの起動毎回行うこと)」の順で実行して下さい。
-
 1. EC2をLinux/Ubuntu で構築
 
 2. terminalで以下を実行
@@ -81,7 +81,7 @@ AWS Certificate Managerでドメインを取得し、ALBにアタッチする形
 7. 仮想環境の起動
     ```
     source venv/bin/activate
-    cd presidentblog-bot_UI
+    cd presidentblog-bot_RAG
     ```
 
 8. requirements.txt からライブラリをインストール
@@ -91,7 +91,18 @@ AWS Certificate Managerでドメインを取得し、ALBにアタッチする形
     pip install flask faiss-cpu pandas matplotlib "langchain==0.1.20" "langchain-community==0.0.38" "langchain-core==0.1.52" "langchain-openai==0.1.7" "langchain-text-splitters==0.0.2"
     ```
 
-### 2. RAG用Index作成（初回のみ）
+### 3. 環境変数（毎回行うこと）
+本アプリケーションを使うにあたり、各keyを認識させておいて下さい。
+```
+export AZURE_OPENAI_API_KEY="..."
+export AZURE_OPENAI_ENDPOINT="..."
+export LLM_MODELS="..."
+export LLM_MODELS_TURBO="..."
+export EM_MODELS="..."
+export FILE_PATH="/home/ubuntu/presidentblog-bot_RAG/src"
+```
+
+### 4. RAG用Index作成（初回のみ）
 1. ナレッジ元となるCSVファイルの用意<br>
     CSVファイルを以下に配置：*src/db/knowledge_data.csv*
 2. コードの実行<br>
@@ -99,10 +110,10 @@ AWS Certificate Managerでドメインを取得し、ALBにアタッチする形
     ```
     cd src/db
     python faiss_indexing.py
-    cd ../..
+    cd ../
     ```
 
-### 3. 画像準備（初回のみ）
+### 5. 画像準備（初回のみ）
 bot側UIのアイコン画像、3Dモデル背景画像の設定を行います。
 
 - bot側UIのアイコン画像
@@ -111,7 +122,7 @@ bot側UIのアイコン画像、3Dモデル背景画像の設定を行います�
 - 3Dモデル背景画像
     - 背景画像を以下に配置：*src/static/images/background.jpg*
 
-### 4. モデル/アニメーション準備
+### 6. モデル/アニメーション準備（初回のみ）
 3Dモデル（VRMファイル）、アニメーション（VRMAファイル）の設定を行います。
 
 - 3Dモデルを以下に配置：*src/static/models/vrm/vrm_model.vrm*
@@ -127,18 +138,7 @@ bot側UIのアイコン画像、3Dモデル背景画像の設定を行います�
     const Answering_vrma = '/static/motions/vrma/Sample4.vrma'  //回答生成完了時に再生するアニメーション
     ```
 
-### 5. 環境変数（毎回行うこと）
-本アプリケーションを使うにあたり、各keyを認識させておいて下さい。
-```
-export AZURE_OPENAI_API_KEY="..."
-export AZURE_OPENAI_ENDPOINT="..."
-export LLM_MODELS="..."
-export LLM_MODELS_TURBO="..."
-export EM_MODELS="..."
-export FILE_PATH="/home/ubuntu/presidentblog-bot_RAG/src"
-```
-
-### 6.アプリの起動（毎回行うこと）
+### 7.アプリの起動（毎回行うこと）
 GitのソースをEC2に配置後、以下を実行して下さい。
 ```
 cd ../..
@@ -147,7 +147,7 @@ cd presidentblog-bot_RAG/src
 python main.py
 ```
 
-### 7. Teamsへのアプリ登録
+### 8. Teamsへのアプリ登録（初回のみ）
 1. "*manifest/manifest.json*" の記載<br>
 実際に配置されているファイルを参照し、コメントが付いている箇所を適宜修正して下さい。
 
@@ -166,12 +166,12 @@ python main.py
 "*src/main.py*" にて、*"ログイン画面を使いたい場合"* の内容をアンコメントし、*"ログイン画面を使わない場合"* の内容をコメントアウトすると使えるようになります。
 
 ### 2. EC2環境ではなくローカル環境で立ち上げる場合
-Ubuntu環境を構築し、「[2-2.terminalで以下を実行](#2-vscode環境構築初回のみ)」→ 「[6.アプリの起動](#6アプリの起動毎回行うこと)」を行うことで、"localhost"扱いで立ち上げることが可能となる。この場合は、別途AzureのIP制限をデバイスのIPで既定する必要がある。
+Ubuntu環境を構築し、「[2-2.terminalで以下を実行](#2-vscode環境構築初回のみ)」→ 「[7.アプリの起動](#7アプリの起動毎回行うこと)」を行うことで、"localhost"扱いで立ち上げることが可能となる。この場合は、別途AzureのIP制限をデバイスのIPで既定する必要がある。
 
-※この場合、「[5. 環境変数](#5-環境変数毎回行うこと)」にてexport する "*FILE_PATH*" の変数は各自のローカルPCの配置フォルダに合わせて下さい。
+※この場合、「[3. 環境変数](#3-環境変数毎回行うこと)」にてexport する "*FILE_PATH*" の変数は各自のローカルPCの配置フォルダに合わせて下さい。
 
 *なお、Ubuntu環境の構築については以下を例にセットアップして下さい。*
-
+- 参考URL：https://qiita.com/zaburo/items/27b5b819fae2bde97a3b
 
 ### 3. 3Dモデル / アニメーションの用意
 今回採用した3DモデルはVRMファイル形式であるため、[*VRoidStudio*](https://vroid.com/studio)のようなツールで3Dモデルを作成する必要があります。（ fbxファイル形式などは[*UniVRM*](https://github.com/vrm-c/UniVRM)等を使ってVRMファイルに変換すればよい。詳しくは公式ドキュメントを参照して下さい。 ）<br>
