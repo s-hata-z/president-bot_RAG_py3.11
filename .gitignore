@@ -13,5 +13,8 @@
 /src/prompts/character_prompts.txt
 
 /src/static/images/*
+!/src/static/images/.gitkeep
 /src/static/models/vrm/*
+!/src/static/models/vrm/.gitkeep
 /src/static/motions/vrma/*
+!/src/static/motions/vrma/.gitkeep
