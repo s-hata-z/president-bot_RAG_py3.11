@@ -1,0 +1,15 @@
+.env
+
+/src/__pycache__/*
+
+/src/db/knowledge_logs.txt
+/src/db/index.faiss
+/src/db/index.pkl
+/src/db/merge_president_blog.csv
+
+/src/prompts/system_prompts.txt
+/src/prompts/character_prompts.txt
+
+/src/static/images/*
+/src/static/models/vrm/*
+/src/static/motions/vrma/*

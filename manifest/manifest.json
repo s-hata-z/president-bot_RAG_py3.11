@@ -1,0 +1,37 @@
+{
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.13/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.13",
+    "version": "1.0.0",
+    "id": "...",                          // UUID形式（8文字-4文字-4文字-4文字-12文字の16進数（0-9、a-f、A-F）で構成される）で記載して下さい。
+    "packageName": "...",                 // com.example.myapp のように、com.(制作者).(アプリ名) の形式で記載して下さい。
+    "developer": {
+      "name": "SakutoHata",               // 制作者、もしくは帰属組織の名前
+      "websiteUrl": "https://www...",     // 組織・個人のサイトを記載して下さい。
+      "privacyUrl": "https://www...",     // アプリのプライバシーポリシーが記載されているページのURL
+      "termsOfUseUrl": "https://www..."   // アプリの利用規約が記載されているページのURL
+    },
+    "name": {
+      "short": "社長ボット"                // ボットの表示名
+    },
+    "description": {
+      "short": "SakutoHataによって開発された社長botをベースに開発しています。",
+      "full": "SakutoHataによって開発された社長botをベースに開発しています。"
+    },
+    "icons": {
+      "outline": "rest_icon.png",
+      "color": "main_icon.png"
+    },
+    "accentColor": "#FFFFFD",
+    "configurableTabs": [
+      {
+        "configurationUrl": "https://...",  //ここにEC2のドメインを書き込む
+        "canUpdateConfiguration": true,
+        "scopes": ["team"]
+      }
+    ],
+    "permissions": ["identity", "messageTeamMembers"],
+    "validDomains": [
+      "www..."                              // ここにEC2のドメインを書き込む
+    ]
+  }
+  

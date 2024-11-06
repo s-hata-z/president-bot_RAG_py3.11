@@ -20,14 +20,14 @@ AWS Certificate Managerでドメインを取得し、ALBにアタッチする形
 
 ## セットアップ
 ### 1. EC2の設定（初回のみ）
-- アプリケーションおよびOSイメージ：Ubuntu
-- インスタンスタイプ：t2.small
+- アプリケーションおよびOSイメージ：*Ubuntu*
+- インスタンスタイプ：*t2.small*
 - セキュリティグループ：Azure側（OpenAIのエンドポイント）、VSCode側（Flask）と通信可能にしておく
 - キーペア：新規作成して下さい。ここで生成されたkeyファイルは開発用PCの".sshフォルダ"に格納し、VSCodeのリモート開発機能等を使って当リポジトリを導入してください。
 
 ※ElasticIPの割り当て、ドメイン発行、WAFの適応はここでは紹介しないが行っておくこと。
 
-### 2. ローカル環境構築（初回のみ）
+### 2. VSCode環境構築（初回のみ）
 初回で必須の対応となります。<br>
 初回以降は、「[5.環境変数](#5-環境変数毎回行うこと)」→ 「[6.アプリの起動](#6アプリの起動毎回行うこと)」の順で実行して下さい。
 
@@ -93,29 +93,29 @@ AWS Certificate Managerでドメインを取得し、ALBにアタッチする形
 
 ### 2. RAG用Index作成（初回のみ）
 1. ナレッジ元となるCSVファイルの用意<br>
-    CSVファイルを以下に配置：db/knowledge_data.csv
+    CSVファイルを以下に配置：*src/db/knowledge_data.csv*
 2. コードの実行<br>
     RAG構築のVectorDBを作成するため、以下を実行して下さい。
     ```
-    cd db
+    cd src/db
     python faiss_indexing.py
-    cd ../
+    cd ../..
     ```
 
 ### 3. 画像準備（初回のみ）
 bot側UIのアイコン画像、3Dモデル背景画像の設定を行います。
 
 - bot側UIのアイコン画像
-    - botの画像アイコンを以下に配置：static/images/bot-icon.png
-    - userの画像アイコンを以下に配置：static/images/user-icon.png
+    - botの画像アイコンを以下に配置：*src/static/images/bot-icon.png*
+    - userの画像アイコンを以下に配置：*src/static/images/user-icon.png*
 - 3Dモデル背景画像
-    - 背景画像を以下に配置：static/images/background.jpg
+    - 背景画像を以下に配置：*src/static/images/background.jpg*
 
 ### 4. モデル/アニメーション準備
 3Dモデル（VRMファイル）、アニメーション（VRMAファイル）の設定を行います。
 
-- 3Dモデルを以下に配置：static/models/vrm/vrm_model.vrm
-- アニメーションを以下に配置（計4つ）：static/motions/vrma/SampleN.vrma
+- 3Dモデルを以下に配置：*src/static/models/vrm/vrm_model.vrm*
+- アニメーションを以下に配置（計4つ）：*src/static/motions/vrma/SampleN.vrma*
 - "/templates/index.html"の193行～197行の内容を配置したアニメーションファイルに更新して下さい。<br>
 
     例）Sample1,2,3,4を配置した場合
@@ -135,18 +135,48 @@ export AZURE_OPENAI_ENDPOINT="..."
 export LLM_MODELS="..."
 export LLM_MODELS_TURBO="..."
 export EM_MODELS="..."
-export FILE_PATH="/home/ubuntu/presidentblog-bot_RAG"
+export FILE_PATH="/home/ubuntu/presidentblog-bot_RAG/src"
 ```
 
 ### 6.アプリの起動（毎回行うこと）
 GitのソースをEC2に配置後、以下を実行して下さい。
 ```
-cd ../
+cd ../..
 source venv/bin/activate
-cd presidentblog-bot_RAG
+cd presidentblog-bot_RAG/src
 python main.py
 ```
 
+### 7. Teamsへのアプリ登録
+1. "*manifest/manifest.json*" の記載<br>
+実際に配置されているファイルを参照し、コメントが付いている箇所を適宜修正して下さい。
+
+2. "*manifest/main_icon.png*"の用意<br>
+ピクセルが"192×192"のサイズの画像を準備して下さい。
+
+3. "*manifest/rest_icon.png*"の用意<br>
+ピクセルが"32×32"のサイズの白黒透過画像を準備して下さい。
+
+4. Developer PortalにUpload<br>
+各ファイルをmanifestフォルダに格納後、zip化して下さい。<br>
+そのzipファイルをmicrosoftの"[*Developer Portal*](https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=e1979c22-8b73-4aed-a4da-572cc4d0b832&scope=https%3A%2F%2Fdev.teams.microsoft.com%2FAppDefinitions.ReadWrite%20https%3A%2F%2Fdev.teams.microsoft.com%2FCards.ReadWrite%20openid%20profile%20offline_access&redirect_uri=https%3A%2F%2Fdev.teams.microsoft.com%2Fhome&client-request-id=a028b772-b5dc-4c5b-969a-e8c78f6abb9a&response_mode=fragment&response_type=code&x-client-SKU=msal.js.browser&x-client-VER=2.26.0&client_info=1&code_challenge=NKqjsSFzCj-FaEuscsP2g5iV_iaVOMxTewu3Y7wMZx4&code_challenge_method=S256&nonce=53f698a8-d0e7-488f-9532-785b159ae84c&state=eyJpZCI6IjU0OGY2YjdhLTcyMDEtNGNmNC04MThiLTYyNjBkMTRiMTAxNyIsIm1ldGEiOnsiaW50ZXJhY3Rpb25UeXBlIjoicmVkaXJlY3QifX0%3D)"Uploadすることで管理者から認証を得た場合にアプリの展開・利用が可能となります。
+
 ## オプション
 ### 1. ログイン画面の有無
-main.pyにて、"ログイン画面を使いたい場合" の内容をアンコメントし、"ログイン画面を使わない場合" の内容をコメントアウトすると使えるようになります。
+"*src/main.py*" にて、*"ログイン画面を使いたい場合"* の内容をアンコメントし、*"ログイン画面を使わない場合"* の内容をコメントアウトすると使えるようになります。
+
+### 2. EC2環境ではなくローカル環境で立ち上げる場合
+Ubuntu環境を構築し、「[2-2.terminalで以下を実行](#2-vscode環境構築初回のみ)」→ 「[6.アプリの起動](#6アプリの起動毎回行うこと)」を行うことで、"localhost"扱いで立ち上げることが可能となる。この場合は、別途AzureのIP制限をデバイスのIPで既定する必要がある。
+
+※この場合、「[5. 環境変数](#5-環境変数毎回行うこと)」にてexport する "*FILE_PATH*" の変数は各自のローカルPCの配置フォルダに合わせて下さい。
+
+*なお、Ubuntu環境の構築については以下を例にセットアップして下さい。*
+
+
+### 3. 3Dモデル / アニメーションの用意
+今回採用した3DモデルはVRMファイル形式であるため、[*VRoidStudio*](https://vroid.com/studio)のようなツールで3Dモデルを作成する必要があります。（ fbxファイル形式などは[*UniVRM*](https://github.com/vrm-c/UniVRM)等を使ってVRMファイルに変換すればよい。詳しくは公式ドキュメントを参照して下さい。 ）<br>
+また、VRMファイルにアニメーション適応するため、今回はVRMAファイルからアニメーションを取り込んでいます。アニメーションの作り方に疎い方は[*VRM Posing Desktop*](https://hub.vroid.com/apps/C5RyO1UeTrOT_gL5l4gXTgA_Lh819zgLdZmxhC-4kmw)(有料)などを使って作成して下さい。
+
+### 4. チャットの回答文の設定
+LangchainからPromptを取り込んでおります。チャットの回答文の語尾・語調、ロール等の設定はこちらで設定することで反映可能です。
+"*src/prompts/character_prompts_Sample.txt*" を参考に、同様の形式で"*src/prompts/character_prompts.txt*"を作成・配置して下さい。
