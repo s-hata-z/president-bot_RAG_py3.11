@@ -14,7 +14,7 @@
 
 ## システム構成
 #### Teams対応版
-![ボット構成図](/images/ボット構成図.jpg)<br>
+![ボット構成図](/images/ボット構成図.png)<br>
 基本的に、AzureOpenAIとAWSのEC2を接続する構成となっています。<br>
 AWS Certificate Managerでドメインを取得し、ALBにアタッチする形でレコードを作成することで、WAFを通じてアクセス可能なデバイス側のIPアドレスを制限しました。
 
