@@ -161,7 +161,8 @@ python main.py
 
 4. Developer PortalにUpload<br>
 各ファイルをmanifestフォルダに格納後、zip化して下さい。<br>
-そのzipファイルをmicrosoftの"[*Developer Portal*](https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=e1979c22-8b73-4aed-a4da-572cc4d0b832&scope=https%3A%2F%2Fdev.teams.microsoft.com%2FAppDefinitions.ReadWrite%20https%3A%2F%2Fdev.teams.microsoft.com%2FCards.ReadWrite%20openid%20profile%20offline_access&redirect_uri=https%3A%2F%2Fdev.teams.microsoft.com%2Fhome&client-request-id=a028b772-b5dc-4c5b-969a-e8c78f6abb9a&response_mode=fragment&response_type=code&x-client-SKU=msal.js.browser&x-client-VER=2.26.0&client_info=1&code_challenge=NKqjsSFzCj-FaEuscsP2g5iV_iaVOMxTewu3Y7wMZx4&code_challenge_method=S256&nonce=53f698a8-d0e7-488f-9532-785b159ae84c&state=eyJpZCI6IjU0OGY2YjdhLTcyMDEtNGNmNC04MThiLTYyNjBkMTRiMTAxNyIsIm1ldGEiOnsiaW50ZXJhY3Rpb25UeXBlIjoicmVkaXJlY3QifX0%3D)"Uploadすることで管理者から認証を得た場合にアプリの展開・利用が可能となります。
+そのzipファイルをmicrosoftの"[*Developer Portal*](https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=e1979c22-8b73-4aed-a4da-572cc4d0b832&scope=https%3A%2F%2Fdev.teams.microsoft.com%2FAppDefinitions.ReadWrite%20https%3A%2F%2Fdev.teams.microsoft.com%2FCards.ReadWrite%20openid%20profile%20offline_access&redirect_uri=https%3A%2F%2Fdev.teams.microsoft.com%2Fhome&client-request-id=a028b772-b5dc-4c5b-969a-e8c78f6abb9a&response_mode=fragment&response_type=code&x-client-SKU=msal.js.browser&x-client-VER=2.26.0&client_info=1&code_challenge=NKqjsSFzCj-FaEuscsP2g5iV_iaVOMxTewu3Y7wMZx4&code_challenge_method=S256&nonce=53f698a8-d0e7-488f-9532-785b159ae84c&state=eyJpZCI6IjU0OGY2YjdhLTcyMDEtNGNmNC04MThiLTYyNjBkMTRiMTAxNyIsIm1ldGEiOnsiaW50ZXJhY3Rpb25UeXBlIjoicmVkaXJlY3QifX0%3D)"にUploadすることで管理者から認証を得た場合にアプリの展開・利用が可能となります。<br>
+また、microsoft Teamsの「*"アプリ" > "アプリを管理" > "アプリをアップロード"*」でzipファイルをUploadする方法でも同様のことが可能です。
 
 ## オプション
 ### 1. ログイン画面の有無
