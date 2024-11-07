@@ -182,3 +182,7 @@ Ubuntu環境を構築し、「[2-2.terminalで以下を実行](#2-vscode環境�
 ### 4. チャットの回答文の設定
 LangchainからPromptを取り込んでおります。チャットの回答文の語尾・語調、ロール等の設定はこちらで設定することで反映可能です。
 "*src/prompts/character_prompts_Sample.txt*" を参考に、同様の形式で"*src/prompts/character_prompts.txt*"を作成・配置して下さい。
+
+### 5. RAGのSystem promptについて
+こちらもLangchainからPromptを取り込んでおります。Agentic RAGとして機能させたい場合、外部検索処理を"src/main.py"に加え、その結果を変数として受け取れるようにする必要があります。
+"*src/prompts/system_prompts_Sample.txt*" を参考に、同様の形式で"*src/prompts/system_prompts.txt*"を作成・配置して下さい。
