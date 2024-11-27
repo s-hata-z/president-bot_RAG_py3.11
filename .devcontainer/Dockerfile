@@ -49,7 +49,7 @@ RUN pip3 install --no-cache-dir \
     "langchain-text-splitters==0.0.2"
 
 # Gitリポジトリをクローン
-RUN git clone https://github.com/SakutoHata/president-bot_RAG.git /app/repository
+RUN git clone https://github.com/SakutoHata/president-bot_RAG.git /app/president-bot_RAG
 
 # コンテナ内の5000番ポートを開放
 EXPOSE 5000
