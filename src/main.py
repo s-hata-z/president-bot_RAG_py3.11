@@ -8,6 +8,9 @@ from langchain.prompts import ChatPromptTemplate
 from langchain.vectorstores.faiss import FAISS
 from langchain_openai import AzureChatOpenAI, AzureOpenAIEmbeddings
 from openai import AzureOpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def check_file_exists(file_path):
     return os.path.isfile(file_path)

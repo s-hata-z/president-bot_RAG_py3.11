@@ -22,7 +22,7 @@ AWS Certificate Managerでドメインを取得し、ALBにアタッチする形
 「*初回のみ*」と付くものは、初回で必須の対応となります。<br>
 初回以降は、「[3.環境変数](#3-環境変数毎回行うこと)」、「[7.アプリの起動](#7アプリの起動毎回行うこと)」の順で実行して下さい。
 
-※アプリの動作検証のみをしたい方は、「[2. EC2環境ではなくローカル環境で立ち上げる場合](#2-ec2環境ではなくローカル環境で立ち上げる場合)」を参考にして下さい。
+※アプリの動作検証のみをしたい方は、「[2. EC2環境ではなくローカル環境で立ち上げる場合](#2)」を参考にして下さい。
 
 ### 1. EC2の設定（初回のみ）
 - アプリケーションおよびOSイメージ：*Ubuntu*
@@ -94,14 +94,14 @@ AWS Certificate Managerでドメインを取得し、ALBにアタッチする形
     ```
 
 ### 3. 環境変数（毎回行うこと）
-本アプリケーションを使うにあたり、各keyを認識させておいて下さい。
+本アプリケーションを使うにあたり、"*presidentblog-bot_RAG/.env*" にて、各keyを認識させておいて下さい。
 ```
-export AZURE_OPENAI_API_KEY="..."
-export AZURE_OPENAI_ENDPOINT="..."
-export LLM_MODELS="..."
-export LLM_MODELS_TURBO="..."
-export EM_MODELS="..."
-export FILE_PATH="/home/ubuntu/presidentblog-bot_RAG/src"
+AZURE_OPENAI_API_KEY="..."      # AzureOpenAI のkey
+AZURE_OPENAI_ENDPOINT="..."     # AzureOpenAI の エンドポイント
+LLM_MODELS="..."                # 対話用 model のkey
+LLM_MODELS_TURBO="..."          # embedding model のkey
+EM_MODELS="..."                 # embedding model のkey
+FILE_PATH="..."                 # presidentblog-bot_RAG/srcの配置
 ```
 
 ### 4. RAG用Index作成（初回のみ）
@@ -168,13 +168,17 @@ python main.py
 ### 1. ログイン画面の有無
 "*src/main.py*" にて、*"ログイン画面を使いたい場合"* の内容をアンコメントし、*"ログイン画面を使わない場合"* の内容をコメントアウトすると使えるようになります。
 
-### 2. EC2環境ではなくローカル環境で立ち上げる場合
+### 2. 他環境にてセットアップ
+#### 2-1. EC2環境ではなくローカル環境で立ち上げる場合
 Ubuntu環境を構築し、「[2-2.terminalで以下を実行](#2-vscode環境構築初回のみ)」→ 「[7.アプリの起動](#7アプリの起動毎回行うこと)」を行うことで、"localhost"扱いで立ち上げることが可能となる。この場合は、別途AzureのIP制限をデバイスのIPで既定する必要がある。
-
-※この場合、「[3. 環境変数](#3-環境変数毎回行うこと)」にてexport する "*FILE_PATH*" の変数は各自のローカルPCの配置フォルダに合わせて下さい。
 
 *なお、Ubuntu環境の構築については以下を例にセットアップして下さい。*
 - 参考URL：https://qiita.com/zaburo/items/27b5b819fae2bde97a3b
+
+#### 2-2. Docker環境で立ち上げる場合
+git cloneした上で、"*president-bot_RAG/.devcontainer*" のイメージを元に立ち上げてください。
+
+なお、docker環境でアプリを動かす場合は、「[3. 環境変数](#3-環境変数毎回行うこと)」を必ず行うこと。
 
 ### 3. 3Dモデル / アニメーションの用意
 今回採用した3DモデルはVRMファイル形式であるため、[*VRoidStudio*](https://vroid.com/studio)のようなツールで3Dモデルを作成する必要があります。（ fbxファイル形式などは[*UniVRM*](https://github.com/vrm-c/UniVRM)等を使ってVRMファイルに変換すればよい。詳しくは公式ドキュメントを参照して下さい。 ）<br>
