@@ -176,7 +176,7 @@ Ubuntu環境を構築し、「[2-2.terminalで以下を実行](#2-vscode環境�
 - 参考URL：https://qiita.com/zaburo/items/27b5b819fae2bde97a3b
 
 #### 2-2. Docker環境で立ち上げる場合
-git cloneした上で、"*president-bot_RAG/.devcontainer*" のイメージを元に立ち上げてください。
+この場合、"*requirements.txt*", 及び"*president-bot_RAG/.devcontainer*" を用いて、立ち上げてください。
 
 なお、docker環境でアプリを動かす場合は、「[3. 環境変数](#3-環境変数毎回行うこと)」を必ず行うこと。
 
