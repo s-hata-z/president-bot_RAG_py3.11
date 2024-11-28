@@ -180,6 +180,15 @@ Ubuntu環境を構築し、「[2-2.terminalで以下を実行](#2-vscode環境�
 
 なお、docker環境でアプリを動かす場合は、「[3. 環境変数](#3-環境変数毎回行うこと)」を必ず行うこと。
 
+※以下は、Ubuntuからアプリを起動させる場合のコマンド
+```
+docker exec -it <コンテナ名> /bin/bash
+
+cd ../app/repository/src
+
+/usr/bin/python3 /app/repository/src/main.py
+```
+
 ### 3. 3Dモデル / アニメーションの用意
 今回採用した3DモデルはVRMファイル形式であるため、[*VRoidStudio*](https://vroid.com/studio)のようなツールで3Dモデルを作成する必要があります。（ fbxファイル形式などは[*UniVRM*](https://github.com/vrm-c/UniVRM)等を使ってVRMファイルに変換すればよい。詳しくは公式ドキュメントを参照して下さい。 ）<br>
 また、VRMファイルにアニメーション適応するため、今回はVRMAファイルからアニメーションを取り込んでいます。アニメーションの作り方に疎い方は[*VRM Posing Desktop*](https://hub.vroid.com/apps/C5RyO1UeTrOT_gL5l4gXTgA_Lh819zgLdZmxhC-4kmw)(有料)などを使って作成して下さい。
