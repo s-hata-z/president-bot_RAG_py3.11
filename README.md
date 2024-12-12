@@ -200,3 +200,8 @@ LangchainからPromptを取り込んでおります。チャットの回答文�
 ### 5. RAGのSystem promptについて
 こちらもLangchainからPromptを取り込んでおります。Agentic RAGとして機能させたい場合、外部検索処理を"src/main.py"に加え、その結果を変数として受け取れるようにする必要があります。<br>
 "*src/prompts/system_prompts_Sample.txt*" を参考に、同様の形式で"*src/prompts/system_prompts.txt*"を作成・配置して下さい。
+
+
+### 6. ローカルLLMの使用について
+セキュリティ要件のため、ローカルLLMを利用したいという要望がある場合は以下を参照してください。
+- Ollama：[*URL*](https://github.com/SakutoHata/president-bot_RAG-ollama)
