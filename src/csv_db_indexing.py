@@ -142,7 +142,7 @@ def main():
                 df_stac = pd.concat([df_stac, df], ignore_index=True)
             else:
                 print("対象外のファイルです。")
-        check_index(FILE_PATH, target_file, df_stac)
+            check_index(FILE_PATH, target_file, df_stac)
 
     else:
         print("追加されたファイルは無いようです。")
