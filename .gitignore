@@ -8,6 +8,18 @@
 /src/db/index.pkl
 /src/db/merge_president_blog.csv
 /src/db/knowledge_data.csv
+/src/db/faiss/index.faiss
+/src/db/faiss/index.pkl
+/src/db/faiss/merge_president_blog.csv
+/src/db/faiss/knowledge_data.csv
+
+/src/db/csv_index/*
+!/src/db/csv_index/add_data
+/src/db/csv_index/add_data/*
+!/src/db/csv_index/add_data/.gitkeep
+!/src/db/csv_index/stored_data
+/src/db/csv_index/stored_data/*
+!/src/db/csv_index/stored_data/.gitkeep
 
 /src/prompts/system_prompts.txt
 /src/prompts/character_prompts.txt
