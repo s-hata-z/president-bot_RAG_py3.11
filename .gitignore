@@ -12,6 +12,7 @@
 /src/db/faiss/index.pkl
 /src/db/faiss/merge_president_blog.csv
 /src/db/faiss/knowledge_data.csv
+!/src/db/faiss/.gitkeep
 
 /src/db/csv_index/*
 !/src/db/csv_index/add_data
