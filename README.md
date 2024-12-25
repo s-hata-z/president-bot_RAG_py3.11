@@ -208,7 +208,7 @@ LangchainからPromptを取り込んでおります。チャットの回答文�
 - Ollama：[*URL*](https://github.com/SakutoHata/president-bot_RAG-ollama)
 
 
-### 7. CSVをIndexとして扱う場合
+### 7. CSVデータの追加・更新に伴うIndexの更新
 Indexの内容を可視化し、他ファイルのデータも一つのIndexにマージしたいとの要望があり、対応。<br>
 
 "*presidentblog-bot_RAG/.env*" にて、MODEを以下のように書き換えておいて下さい。
@@ -216,5 +216,6 @@ Indexの内容を可視化し、他ファイルのデータも一つのIndexに�
 MODE="csv_index"                # csv_indexを使うか否かの切り替え
 ```
 
-上記の後、"*src/db/csv_index/add_data*" に対象のCSVデータを格納後、"*src/main.py*" を実行することでアプリ立ち上げ前に専用Index"*src/db/csv_index/vector_index.csv*" が作成されます。これをRAGで参照する次第です。<br>
+上記の後、"*src/db/csv_index/add_data*" に対象のCSVデータを格納後、"*src/main.py*" を実行することでアプリ立ち上げ前に専用Index"*src/db/csv_index/vector_index.csv*" が作成されます。<br>
+これを参照し、"*src/db/csv_index/faiss_dump*" にfaiss DBを構築する次第です。（構築されたDBは以前と同様にRAGに使用されます。）<br>
 "*src/db/csv_index/add_data*" に格納されていたファイルは、"*src/db/csv_index/stored_data*" へ移動しますが削除しないようお願いいたします。
