@@ -69,9 +69,9 @@ def index():
 def chat():
     user_message = request.json['message']
     if MODE == "csv_index":
-        contents = rag_handler.fetch_relevant_docs(user_message)
+        contents = search_Index(user_message, embedding)
     else:
-        contents = search_Index(user_message)
+        contents = rag_handler.fetch_relevant_docs(user_message)
     updated_system_prompt = rag_handler.update_system_prompt(contents)
 
     def generate():

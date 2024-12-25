@@ -18,6 +18,9 @@
 !/src/db/csv_index/add_data
 /src/db/csv_index/add_data/*
 !/src/db/csv_index/add_data/.gitkeep
+!/src/db/csv_index/faiss_dump
+/src/db/csv_index/faiss_dump/*
+!/src/db/csv_index/faiss_dump/.gitkeep
 !/src/db/csv_index/stored_data
 /src/db/csv_index/stored_data/*
 !/src/db/csv_index/stored_data/.gitkeep

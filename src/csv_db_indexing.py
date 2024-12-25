@@ -13,6 +13,7 @@ from openai import AzureOpenAI
 import numpy as np
 from numpy.linalg import norm
 from dotenv import load_dotenv
+from csv_db2faiss import load_csv_and_prepare_vectors, build_faiss_index_with_metadata
 
 load_dotenv()
 
@@ -80,13 +81,13 @@ def csv_indexer(file_path, target_file, embeddings):
         doc_id, title, contents = parse_page_content(doc.page_content)
 
         row = {
-            'id': doc_id,
+            #'id': doc_id,
             'Title': title,
             'Contents': contents
         }
         # メタデータも展開したい場合
-        for k, v in doc.metadata.items():
-            row[k] = v
+        # for k, v in doc.metadata.items():
+        #     row[k] = v
         data.append(row)
     df = pd.DataFrame(data)
     for i in range(len(df)):
@@ -106,7 +107,7 @@ def check_index(file_path, file_name, df):
     csv_file = f"{file_path}/db/csv_index/vector_index.csv"
     if os.path.exists(csv_file) == True:
         print("-- 既存のIndexに追加します。")
-        df.to_csv(csv_file, mode='a', index=False, encoding='utf-8')
+        df.to_csv(csv_file, mode='a', index=False, header=False, encoding='utf-8')
     else:
         df.to_csv(csv_file, index=False, encoding='utf-8')
         print("-- 新規にIndexを作成します。")
@@ -143,7 +144,13 @@ def main():
             else:
                 print("対象外のファイルです。")
             check_index(FILE_PATH, target_file, df_stac)
-
+        print("faissDBを構築開始いたします。")
+        # ベクトルデータをロード
+        vectors, meta_data = load_csv_and_prepare_vectors(f"{FILE_PATH}/db/csv_index/vector_index.csv")
+        # FAISSインデックスを作成し、メタデータを保存
+        faiss_index_path = f"{FILE_PATH}/db/csv_index/faiss_dump/faiss_index"
+        metadata_path = f"{FILE_PATH}/db/csv_index/faiss_dump/faiss_metadata.txt"
+        build_faiss_index_with_metadata(vectors, meta_data, faiss_index_path, metadata_path)
     else:
         print("追加されたファイルは無いようです。")
   
