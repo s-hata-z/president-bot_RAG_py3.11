@@ -190,6 +190,9 @@ cd ../app/repository/src
 /usr/bin/python3 /app/repository/src/main.py
 ```
 
+#### 2-3. VSCode + Python の場合
+[こちら](md/using_OnlyVSCode.md)を参照し、対応して下さい。
+
 ### 3. 3Dモデル / アニメーションの用意
 今回採用した3DモデルはVRMファイル形式であるため、[*VRoidStudio*](https://vroid.com/studio)のようなツールで3Dモデルを作成する必要があります。（ fbxファイル形式などは[*UniVRM*](https://github.com/vrm-c/UniVRM)等を使ってVRMファイルに変換すればよい。詳しくは公式ドキュメントを参照して下さい。 ）<br>
 また、VRMファイルにアニメーション適応するため、今回はVRMAファイルからアニメーションを取り込んでいます。アニメーションの作り方に疎い方は[*VRM Posing Desktop*](https://hub.vroid.com/apps/C5RyO1UeTrOT_gL5l4gXTgA_Lh819zgLdZmxhC-4kmw)(有料)などを使って作成して下さい。
