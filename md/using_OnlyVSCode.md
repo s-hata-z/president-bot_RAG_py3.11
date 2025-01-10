@@ -1,4 +1,4 @@
-# VsCode + Python によるセットアップ
+# VSCode + Python によるセットアップ
 
 社長botのセットアップにて、ローカル環境のVSCodeを用いる場合の対応を以下に記載します。
 
