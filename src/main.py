@@ -6,6 +6,7 @@ from langchain.vectorstores.faiss import FAISS
 from langchain_openai import AzureOpenAIEmbeddings
 from openai import AzureOpenAI
 import os
+import datetime
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -28,12 +29,11 @@ embedding = AzureOpenAIEmbeddings(
 )
 
 
-vector_store = FAISS.load_local(f"{FILE_PATH}/db/faiss", embeddings=embedding, allow_dangerous_deserialization=True)
+# vector_store = FAISS.load_local(f"{FILE_PATH}/db/faiss", embeddings=embedding, allow_dangerous_deserialization=True)
 client = AzureOpenAI(api_key=AZURE_OPENAI_API_KEY, api_version="2024-08-01-preview", azure_endpoint=AZURE_OPENAI_ENDPOINT)
 
 # Load prompts
 ## botのキャラクター性に関するもの
-# 使用例
 character_prompt_file_path = 'prompts/character_prompts.txt'
 if check_file_exists(character_prompt_file_path):
     print("character_prompts ファイルが存在します")
@@ -54,9 +54,10 @@ else:
     print("system_prompts ファイルが存在しません")
     with open(f'{FILE_PATH}/prompts/system_prompts_Sample.txt', 'r', encoding='utf-8') as f:
         system_prompt = f.read()
+system_prompt = system_prompt.replace("today_date",(datetime.date.today()).strftime("%Y/%m/%d"))
 
 # Initialize RAGHandler
-rag_handler = RAGHandler(vector_store, client, character_prompt, system_prompt)
+rag_handler = RAGHandler(embedding, client, character_prompt, system_prompt)
 
 # Flask app setup
 app = Flask(__name__)

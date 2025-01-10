@@ -1,3 +1,5 @@
+本日は{today_date}です。
+
 *以下の情報を改変せず、回答内容を考えろ。
 {nearly_contens}
 
