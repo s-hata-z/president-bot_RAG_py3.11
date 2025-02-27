@@ -1,5 +1,4 @@
 .env
-/get-pip.py
 
 /src/__pycache__/*
 
