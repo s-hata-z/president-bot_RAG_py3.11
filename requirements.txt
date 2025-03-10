@@ -9,3 +9,7 @@ openai
 numpy
 faiss-cpu
 flask
+
+# 以下は、オプションで必要な場合に
+# rank_bm25
+# nltk
